@@ -1,0 +1,21 @@
+{% include "./header.html" %}
+
+{% include "./navigation.html" %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12" class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>  
+</div>
+
+{% block script %}
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}
+
+{% include "./footer.html" %}
