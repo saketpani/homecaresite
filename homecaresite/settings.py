@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'homecareapp.apps.HomecareappConfig',
     'bootstrap4',
+    'fontawesomefree',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
