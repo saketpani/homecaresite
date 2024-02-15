@@ -3,28 +3,22 @@
 {% block content %}
 
 <main role="main">
-  <section class="jumbotron text-center m-4" style="height: 400px;margin-top: 50px;">
-    <div class="container align-items-center" style="margin-top: 20px;">
-      <h5>Search Service Providers </h5>
-      <form action="searchResults" method="get">
+  <section class="jumbotron m-5 mb-5">
+    <div class="container" style="margin-top: 20px;">
+      <h4>Search Service Providers </h4>
+      <form action="searchResults" class="text-center align-items-center" method="get">
         <div class="row">
           <div class="col">
             <input type="text" class="form-control" placeholder="Search by Name or Pin Code" aria-label="First name">
           </div>                            
         </div>  
         <div class="row m-4">
-          <div class="col">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Daily Medical Checkup</label>
-          </div>      
-          <div class="col">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Nursing Services</label>
-          </div>     
-          <div class="col">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Assisted Care</label>
-          </div>             
+          {% for item in care_services %}
+            <div class="col">
+              <input type="checkbox" class="form-check-input" id={{item.id}}>
+              <label class="form-check-label" for={{item.id}}>{{item.description}}</label>
+            </div>   
+          {% endfor %}                     
         </div>  
         <div class="row m-4">
           <div class="col">
@@ -35,12 +29,6 @@
     </div>
   </section>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">                                
-      </div>
-    </div>
-  </div>
 </main>
 
 {% endblock %}

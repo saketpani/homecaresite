@@ -2,46 +2,44 @@
 
 {% block content %}
     <main role="main">
-      <section class="jumbotron text-center">
+      <section class="jumbotron text-center mt-2" 
+      style="
+      background-image: url('media/assets/HomeCare.jpg');">
         <div class="container">
-          <h1 class="jumbotron-heading">Old Age Home Care Services</h1>
-          <p class="lead text-muted">Welcome to old age home care - a non profit service initiative for the healthcare awareness and need.</p>
+          <h1 class="jumbotron-heading">{{page_content.title}}</h1>
+          <p class="lead text-muted">{{page_content.summary}}</p>
+          <a href="login" class="btn btn-outline-light btn-lg mt-2">Login</a>
         </div>
       </section>
 
-      <div class="py-5 bg-light">
+      <div class="py-2 bg-light">
         <div class="container">
           <div class="row">
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <div class="card-body">
-                  <h5 class="card-title text-center">Home Nursing Care</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                  <h5 class="card-title text-center">{{page_content.content1Title}}</h5>
+                  <p class="card-text">{{page_content.content1Description}}</p>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <div class="card-body">
-                  <h5 class="card-title text-center">Old Age Assisted Care</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                  <h5 class="card-title text-center">{{page_content.content2Title}}</h5>
+                  <p class="card-text">{{page_content.content2Description}}</p>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <div class="card-body">
-                  <h5 class="card-title text-center">Home Care</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                  <h5 class="card-title text-center">{{page_content.content3Title}}</h5>
+                  <p class="card-text">{{page_content.content3Description}}</p>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <a href="login" class="btn btn-secondary">Login</a>
-            </div>
-          </div>
+          </div>         
         </div>
       </div>
     </main>   

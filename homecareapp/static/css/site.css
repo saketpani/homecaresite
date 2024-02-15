@@ -22,10 +22,10 @@ body {
 }
 
 #navigation {
-    width: 100%;
-    background-color: #20639b;
+    width: 100%;    
     color: #ffffff;
     padding: 2px;
+
 }
 
 #footer {
@@ -44,11 +44,15 @@ body {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none;     
+    color: #fff;  
+    font-weight: bold; 
+    font-size: large;
 }
 
 .nav_link {
-    color: white;
+    color: #fff;
+    font-weight: bold;
 }
 
 #content {
@@ -105,17 +109,18 @@ a {
     color: #20639b;
 }
 .btn{
-    border-radius:5px;
+    border-radius:5px;          
     background-color: #008CBA;
-    color: #ffffff;
-    padding: 0.2em;
+    color: #fff; 
+    padding: 0.3em;
     min-width: 100px;    
 }
 
-.btn:hover {
-  background-color: #008CBA;
-  color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.btn:hover {  
+    border-radius:5px;          
+    background-color: #008CBA;
+    color: #fff; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .friend-list-item{    

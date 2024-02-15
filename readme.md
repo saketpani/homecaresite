@@ -19,3 +19,6 @@ django-admin startproject django_project .
 
 # Create your app
 python manage.py startapp main
+
+## send email
+https://www.sitepoint.com/django-send-email/
