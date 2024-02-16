@@ -6,10 +6,11 @@
   <section class="jumbotron m-5 mb-5">
     <div class="container" style="margin-top: 20px;">
       <h4>Search Service Providers </h4>
-      <form action="searchResults" class="text-center align-items-center" method="get">
+      <form action="search" method="post" class="text-center align-items-center">
+        {% csrf_token %}
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Search by Name or Pin Code" aria-label="First name">
+            <input type="text" name="search_input" class="form-control" placeholder="Search by Name or Pin Code" aria-label="First name">
           </div>                            
         </div>  
         <div class="row m-4">
@@ -28,7 +29,6 @@
       </form>
     </div>
   </section>
-
 </main>
 
 {% endblock %}

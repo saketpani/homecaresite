@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
@@ -33,7 +33,7 @@ def faq(request):
     FAQ Page
     '''
     template = 'homecareapp/faq.html'     
-    faq_results = FAQ.objects.all;
+    faq_results = FAQ.objects.all()
      
     context = {
         'faq_results' : faq_results
@@ -45,19 +45,35 @@ def dashboard(request, id):
     return render(request, "homecareapp/dashboard.html")
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def search(request):
     
-    template = 'homecareapp/search.html'     
-    care_services = CareService.objects.all;
-     
-    context = {
-        'care_services' : care_services
-    }    
+    if request.method == 'POST':   
+            
+        search_input = request.POST.get('search_input')              
+        
+        if search_input is None or search_input == '':
+            return HttpResponseBadRequest('Invalid serach_input value.')
+        
+        search_results = (ServiceProvider.objects.filter(title__contains=search_input) 
+                           | ServiceProvider.objects.filter(pin__contains=search_input))
+                                         
+        template = 'homecareapp/searchResults.html'
+                
+        context = {
+            'search_results' : search_results,
+            'care_services' : CareService.objects.all()
+        }
+        
+        return render(request, template, context)     
+    else:
+        template = 'homecareapp/search.html'     
+        care_services = CareService.objects.all()
+        
+        context = {
+            'care_services' : care_services
+        }    
     return render(request, template, context)     
-
-@login_required
-def searchResults(request):
-    return render(request, "homecareapp/searchResults.html")
 
 # authentication
 @require_http_methods(["GET", "POST"])
@@ -110,6 +126,7 @@ def register(request):
         # render the page with context
         return render(request, template, context)
 
+
 @require_http_methods(["GET", "POST"])
 def user_login(request):
     '''
@@ -142,3 +159,9 @@ def user_login(request):
         template = 'homecareapp/login.html'  
         context = { 'user_form': UserForm() }              
         return render(request, template, context)                                
+    
+@login_required
+@require_http_methods(["GET"])
+def user_logout(request):
+    logout(request)    
+    return redirect('/login')

@@ -1,114 +1,64 @@
+
 {% extends './base.html' %}    
+{% load shared_filters %}  
 
 {% block content %}
     <main role="main">
-      <section class="jumbotron text-center m-4" style="height: 200px;margin-top: 50px;">
-        <div class="container align-items-center" style="margin-top: 20px;">
-          <h5>Search Service Providers</h5>
-          <form action="searchResults" method="get">
+      <section class="jumbotron m-5">
+        <div class="container">
+          <h4>Search Service Providers </h4>
+          <form action="search" method="post" class="text-center align-items-center">
+            {% csrf_token %}
             <div class="row">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Search by Name or Pin Code" aria-label="First name" />
-              </div>
-            </div>
-            <div class="row m-4">
-              <div class="col">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                <label class="form-check-label" for="exampleCheck1">Daily Health Checkup</label>
-              </div>
-              <div class="col">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                <label class="form-check-label" for="exampleCheck1">Nursing Services</label>
-              </div>
-              <div class="col">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                <label class="form-check-label" for="exampleCheck1">Assisted Care</label>
-              </div>
-            </div>
+                <input type="text" name="search_input" class="form-control" placeholder="Search by Name or Pin Code" aria-label="First name">
+              </div>                            
+            </div>  
+            <div class="row m-2">
+              {% for item in care_services %}
+                <div class="col">
+                  <input type="checkbox" class="form-check-input" id="{{item.id}}">
+                  <label class="form-check-label" for="{{item.id}}">{{item.description}}</label>
+                </div>   
+              {% endfor %}                     
+            </div>  
             <div class="row m-4">
               <div class="col">
                 <button type="submit" class="btn btn-secondary">Search</button>
-              </div>
-            </div>
+              </div>              
+            </div>          
           </form>
         </div>
       </section>
-
-      <div class="album py-5 bg-light">
+      <section class="m-5 mb-5 bg-light">
         <div class="container">
+          {% for item in search_results %}
           <div class="row mt-2">
             <section class="search-result-item">
-              <a class="image-link" href="#">
-                <img class="image" height="150" src="/media/assets/flower.jpg" alt="service provider" />
-              </a>
+              <img class="image image-link" height="200" src="/media/assets/flower.jpg" alt="service provider" />
               <div class="search-result-item-body">
                 <div class="row">
                   <div class="col-sm-9">
-                    <h4 class="search-result-item-heading"><a href="#">Home and Life Care</a></h4>
-                    <p class="info">Bangalore, 560080</p>
-                    <p class="description">We offer home care, daily assited care, nursing, health check. Visit our site at www.hlccare.com</p>
+                    <h4 class="search-result-item-heading">{{item.title}}</h4>
+                    <p class="info">{{item.city}}, {{item.pin}}</p>
+                    <p class="description">{{item.summary}}</p>                    
                     <p>
-                      <span class="badge text-bg-secondary">Nursing</span>
-                      <span class="badge text-bg-secondary">Health Checkup</span>
-                      <span class="badge text-bg-secondary">Assisted Care</span>
+                      {% with item.services|split:"," as services %}
+                          {% for service in services %}
+                              <span class="badge badge-light">{{ service }}</span>                              
+                          {% endfor %}
+                      {% endwith %}                        
                     </p>                    
                   </div>
                   <div class="col-sm-3 text-align-center">
-                    <p class="value3 mt-sm">**** 8.5/10</p>
+                    <p class="value3 mt-sm">**** {{item.rating}}/10</p>
                     <a class="btn btn-primary btn-info" href="#"> View Details </a>
                   </div>                  
                 </div>
               </div>
             </section>
-          </div>
-          <div class="row mt-2">
-            <section class="search-result-item">
-              <a class="image-link" href="#">
-                <img class="image" height="150" src="/media/assets/pic2.jpg" alt="service provider" />
-              </a>
-              <div class="search-result-item-body">
-                <div class="row">
-                  <div class="col-sm-9">
-                    <h4 class="search-result-item-heading"><a href="#">We Care Services</a></h4>
-                    <p class="info">Bangalore, 560081</p>
-                    <p class="description">We offer home care, daily assited care, nursing, health check. Visit our site at www.hlccare.com</p>
-                    <p>
-                      <span class="badge text-bg-secondary">Nursing</span>                      
-                      <span class="badge text-bg-secondary">Assisted Care</span>
-                    </p>                    
-                  </div>
-                  <div class="col-sm-3 text-align-center">
-                    <p class="value3 mt-sm">**** 8.8/10</p>
-                    <a class="btn btn-primary btn-info" href="#"> View Details </a>
-                  </div>                  
-                </div>
-              </div>
-            </section>
-          </div>
-          <div class="row mt-2">
-            <section class="search-result-item">
-              <a class="image-link" href="#">
-                <img class="image" height="150" src="/media/assets/flower.jpg" alt="service provider" />
-              </a>
-              <div class="search-result-item-body">
-                <div class="row">
-                  <div class="col-sm-9">
-                    <h4 class="search-result-item-heading"><a href="#">Trinity Home Care Services</a></h4>
-                    <p class="info">Bangalore, 560082</p>
-                    <p class="description">We offer home care, daily assited care, nursing, health check. Visit our site at www.hlccare.com</p>
-                    <p>
-                      <span class="badge text-bg-secondary">Nursing</span>
-                      <span class="badge text-bg-secondary">Health Checkup</span>                      
-                    </p>                    
-                  </div>
-                  <div class="col-sm-3 text-align-center">
-                    <p class="value3 mt-sm">**** 8.5/10</p>
-                    <a class="btn btn-primary btn-info" href="#"> View Details </a>
-                  </div>                  
-                </div>
-              </div>
-            </section>
-          </div>
+          </div>    
+          {% endfor %}        
         </div>
       </div>
     </main>
