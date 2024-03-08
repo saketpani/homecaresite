@@ -25,10 +25,11 @@ class AppUser(models.Model):
     date_of_birth = models.CharField(max_length=256, null=False, blank=False)
     mobile = models.CharField(max_length=50, null=True, blank=True)
     date_created = models.DateField(default=datetime.date.today)
-    user_type = models.CharField(max_length=100, default = 'normal')
+    user_type = models.CharField(max_length=100, default='normal')
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+
 
 class FAQ(models.Model):
     '''
@@ -67,6 +68,9 @@ class PageContent(models.Model):
 
 
 class CareService(models.Model):
+    '''
+    Care Service Model
+    '''
     code = models.CharField(max_length=100, null=False, blank=False)
     description = models.CharField(max_length=1000, null=False, blank=False)
 
@@ -75,6 +79,9 @@ class CareService(models.Model):
 
 
 class ServiceProvider(models.Model):
+    '''
+    Service Provider Model
+    '''
     title = models.CharField(max_length=1000, null=False, blank=False)
     summary = models.TextField(max_length=2000)
     details = models.TextField(max_length=4000, null=True, blank=True)
@@ -98,18 +105,27 @@ class ServiceProvider(models.Model):
     def __str__(self) -> str:
         return self.title
 
-class ServiceProvider_Favourite(models.Model):    
-    user = models.ForeignKey(User, related_name='user', null=True, on_delete=models.CASCADE)  
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE)
+
+class ServiceProvider_Favourite(models.Model):
+    '''
+    Service Provider Favourite Model
+    '''
+    user = models.ForeignKey(User, related_name='user',
+                             null=True, on_delete=models.CASCADE)
+    service_provider = models.ForeignKey(
+        ServiceProvider, on_delete=models.CASCADE)
 
 
 class ProviderUser(models.Model):
+    '''
+    Provider User Model
+    '''
     # use the user table provided by authentication system
-    user = models.OneToOneField(User, on_delete=models.CASCADE)       
-    user_type = models.CharField(max_length=100, default = 'service_provider')
-    
-    # use the user table provided by authentication system
-    provider = models.OneToOneField(ServiceProvider, on_delete=models.CASCADE)    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_type = models.CharField(max_length=100, default='service_provider')
+    # service provider link
+    provider = models.OneToOneField(ServiceProvider, on_delete=models.CASCADE)
+
 
 def __str__(self):
-        return self.first_name + " " + self.last_name
+    return self.first_name + " " + self.last_name
