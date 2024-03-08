@@ -1,5 +1,6 @@
 {% extends './base.html' %}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 
 {% block content %}
   <div class="container-fluid">
@@ -7,9 +8,9 @@
 
     <form method="post" action="/profile/{{ user_id }}" enctype="multipart/form-data">
       {% csrf_token %}
-      {{profile_edit_form.as_p}}      
+      {{ profile_edit_form|crispy }}
       <input type="submit" name="submit" value="Update" class="btn btn-secondary" />
-      <a name="cancel" href="/dashboard/{{user.id}}" class="btn btn-secondary">Cancel</a>
+      <a name="cancel" href="/dashboard/{{ user.id }}" class="btn btn-secondary">Cancel</a>
     </form>
   </div>
 {% endblock %}

@@ -76,8 +76,8 @@ class CareService(models.Model):
 
 class ServiceProvider(models.Model):
     title = models.CharField(max_length=1000, null=False, blank=False)
-    summary = models.CharField(max_length=2000)
-    details = models.CharField(max_length=4000, null=True, blank=True)
+    summary = models.TextField(max_length=2000)
+    details = models.TextField(max_length=4000, null=True, blank=True)
     website_url = models.CharField(max_length=1000, null=False, blank=False)
     rating = models.FloatField(null=True)
     services = models.CharField(max_length=4000, null=False, blank=False)
@@ -105,10 +105,7 @@ class ServiceProvider_Favourite(models.Model):
 
 class ProviderUser(models.Model):
     # use the user table provided by authentication system
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
-    first_name = models.CharField(max_length=256, null=False, blank=False)
-    last_name = models.CharField(max_length=256, null=False, blank=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)       
     user_type = models.CharField(max_length=100, default = 'service_provider')
     
     # use the user table provided by authentication system

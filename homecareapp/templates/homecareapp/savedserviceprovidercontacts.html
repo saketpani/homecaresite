@@ -18,7 +18,7 @@
                     <label>Website Url:</label> {{ item.website_url }}
                   </p>
                   {% comment %} <p>
-                    {% with item.services|split:',', as, services %}
+                    {% with , as, services %}
                       {% for service in services %}
                         <span class="badge badge-light">{{ service }}</span>
                       {% endfor %}

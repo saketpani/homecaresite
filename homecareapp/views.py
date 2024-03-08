@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 import logging
 
+
 def index(request):
     '''
     Home Page
@@ -257,7 +258,7 @@ def profile_edit(request, id):
             print(profile_form.errors)
     else:
         profile = AppUser.objects.filter(user__id=request.user.id).first()
-        profile_edit_form = UserProfileEditForm(instance=profile)        
+        profile_edit_form = UserProfileEditForm(instance=profile)
 
         template = 'homecareapp/profile.html'
         context = {'profile_edit_form': profile_edit_form, 'user_id': id}
@@ -284,6 +285,17 @@ def user_login(request):
                 'error': "Invalid login details supplied."
             }
             return render(request, template, context)
+        
+        profile = AppUser.objects.filter(user__id=user.id).first()
+        if not profile:
+            # invalid credentails. return.
+            template = 'homecareapp/login.html'
+            context = {
+                'user_form': UserForm(),
+                'error': "This user is not registered as a care receiver."
+            }
+            return render(request, template, context)
+
 
         if user.is_active:
             login(request, user)
@@ -297,9 +309,88 @@ def user_login(request):
         context = {'user_form': UserForm()}
         return render(request, template, context)
 
+@require_http_methods(["GET", "POST"])
+def service_provider_login(request):
+    '''
+    user login view
+    '''
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)       
+        
+        profile = ProviderUser.objects.filter(user__id=user.id).first()
+        if not profile:
+            # invalid credentails. return.
+            template = 'homecareapp/service_provider_login.html'
+            context = {
+                'user_form': UserForm(),
+                'error': "This user is not registered as a home care service provider."
+            }
+            return render(request, template, context)
+
+
+        if user.is_active:
+            login(request, user)
+            return redirect('/')
+        else:
+            return HttpResponseForbidden("Your account is disabled.")
+
+    else:
+        # get request
+        template = 'homecareapp/service_provider_login.html'
+        context = {'user_form': UserForm()}
+        return render(request, template, context)
 
 @login_required
 @require_http_methods(["GET"])
 def user_logout(request):
     logout(request)
     return redirect('/login')
+
+
+@require_http_methods(["GET", "POST"])
+def service_provider_registration(request):
+    '''
+    service_provider_registration page implementation
+    '''
+    template = 'homecareapp/serviceproviderregistration.html'
+
+    if request.method == 'POST':
+        # if form is submitted then get the data and file uploaded
+        service_provider_form = ServiceProviderForm(request.POST, request.FILES)
+        user_form = UserForm(data=request.POST)
+        
+        if service_provider_form.is_valid() and user_form.is_valid() :
+            
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            
+            service_provider = service_provider_form.save()
+            
+            provider_user = ProviderUser()
+            provider_user.user = user
+            provider_user.user_type = 'service_provider'
+            provider_user.provider = service_provider
+            provider_user.save()
+            
+            return redirect('/login')
+        else:
+            # validation error occured
+            context = {'service_provider_form': service_provider_form}
+            return render(request, template, context)
+    else:
+        # build the form context
+        service_provider_form = ServiceProviderForm()
+        user_form = UserForm()
+        user_form.password = ""
+
+        context = {
+            'service_provider_form': service_provider_form,
+            'user_form': user_form
+        }
+
+        return render(request, template, context)
