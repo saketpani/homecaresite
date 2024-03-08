@@ -21,7 +21,7 @@
                 <h5 class="card-title text-center">Profile</h5>
                 <p class="card-text">View or Update your profile details</p>
                 <div class="btn-group text-center">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <a type="button" href="/profile/{{ request.user.id }}" class="btn btn-sm btn-secondary">Profile</a>
                 </div>
               </div>
             </div>
@@ -32,7 +32,7 @@
                 <h5 class="card-title text-center">Contacts</h5>
                 <p class="card-text">View your stored contacts to connect.</p>
                 <div class="btn-group text-center">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <a type="button" href="/savedproviders" class="btn btn-sm btn-secondary">View</a>
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@
                 <h5 class="card-title text-center">Communications</h5>
                 <p class="card-text">View your communications</p>
                 <div class="btn-group text-center">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-secondary">View</button>
                 </div>
               </div>
             </div>

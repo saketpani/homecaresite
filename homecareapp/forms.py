@@ -27,13 +27,12 @@ class UserProfileForm(ModelForm):
     '''            
     class Meta:
         model = AppUser
-        fields = ('first_name', 'last_name', 'mobile', 'date_of_birth', 'user_type')
+        fields = ('first_name', 'last_name', 'mobile', 'date_of_birth')
         widgets = {
             "first_name" : getTextInput('first name?'),
             "last_name"  : getTextInput('Last Name?'),
             "mobile" : getTextInput('mobile?'), 
-            "date_of_birth" : getTextInput('date_of_birth?'),
-            "user_type" : getTextInput('user_type?')
+            "date_of_birth" : getTextInput('date_of_birth?'),            
         }          
         
     def clean(self):
@@ -67,5 +66,28 @@ class UserProfileForm(ModelForm):
         if not date_of_birth:
             raise ValidationError("Date of birth cannot be blank")
         
-        if not user_type:
-            raise ValidationError("User Type cannot be blank")        
+class UserProfileEditForm(ModelForm):
+    '''
+    User Profile Edit Form
+    '''        
+    class Meta:
+        model = AppUser
+        fields = ('first_name', 'last_name', 'mobile', 'date_of_birth')
+        widgets = {
+            "first_name" : getReadOnlyTextInput('First Name?'),
+            "last_name"  : getReadOnlyTextInput('Last Name?'),
+            "mobile" : getTextInput('mobile?'),
+            "date_of_birth" : getReadOnlyTextInput('Date of birth?')                  
+        }    
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        mobile = cleaned_data.get("mobile")
+        if not mobile:
+            raise ValidationError("mobile cannot be blank")
+        else:            
+            if len(mobile) > 50:
+                raise ValidationError("Maximum characters allowed for mobile is 50.") 
+            if not mobile.isdigit():
+                raise ValidationError("mobile phone should be numbers only.") 
+                     

@@ -1,0 +1,98 @@
+{% extends './base.html' %}
+
+{% block content %}
+  <div class="container m-1">
+    <div class="row">
+      <div class="col-md-6 p-2">
+        <img src="/media/assets/flower.jpg" alt="project-image" width="98%" class="rounded m-2" />
+      </div>
+      <div class="col-md-6 p-2">
+        <div class="card m-2">
+          <h5 id="favSection">
+            {{ service_provider.title }}
+            {% if favourite == None or favourite == '' %}
+              <button style="border: 2px solid #cecece; background-color: #FAA0A0; border-radius: 10%;" id="btn-make-favourite" title="Make Favourite">
+                Make Favourite
+              </button>
+            {% else %}  
+            <span style='font-size:30px;'>&#128205;</span>
+            {% endif %}
+          </h5>
+          <hr />
+          <div class="mb-0">{{ service_provider.details }}</div>
+        </div>
+        <div class="card m-2">
+          <hr />
+          <div>
+            <b>Services:</b> {{ service_provider.services }}
+          </div>
+          <hr />
+          <div>
+            <b>Website Url:</b> {{ service_provider.website_url }}
+          </div>
+          <hr />
+          <div>
+            <b>Email:</b> {{ service_provider.email }}
+          </div>
+          <hr />
+          <div>
+            <b>Rating:</b> {{ service_provider.rating }}
+          </div>
+          <hr />
+        </div>
+        <div class="card m-2">
+          <hr />
+          <div>
+            <b>Address:</b> Design, Illustration
+          </div>
+          <hr />
+          <div>
+            <b>Contact Numbers:</b> {{ service_provider.contact_number1 }}, {{ service_provider.contact_number2 }}
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(document).ready(() => {
+      const user_id = '{{ request.user.id }}'
+      const service_provider_id = '{{service_provider.id}}'
+      function getCookie(name) {
+        let cookieValue = null
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';')
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim()
+            if (cookie.substring(0, name.length + 1) === name + '=') {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+              break
+            }
+          }
+        }
+        return cookieValue
+      }
+    
+      $('#btn-make-favourite').on('click', () => {
+        const url = '/api/add_serviceprovider_fovourite/' + user_id
+        const payload = JSON.stringify({ service_provider: service_provider_id })
+    
+        const headers = {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': getCookie('csrftoken'),
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+        fetch(url, { method: 'POST', dataType: 'json', credentials: 'same-origin', headers: headers, body: payload })
+          .then((response) => response.json())
+          .then((result) => {
+            alert('favourite added.');
+            $('#favSection').html('<span style='font-size:30px;'>&#128205;</span>');
+          })
+      })
+    })
+  </script>
+{% endblock %}

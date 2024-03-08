@@ -1,0 +1,39 @@
+{% extends './base.html' %}
+{% load shared_filters %}
+
+{% block content %}
+  <main role="main">
+    <div class="container">
+      {% for item in results %}
+        <div class="row mt-2">
+          <section class="search-result-item">
+            <img class="image image-link" height="200" src="/media/assets/flower.jpg" alt="service provider" />
+            <div class="search-result-item-body">
+              <div class="row">
+                <div class="col-sm-9">
+                  <h4 class="search-result-item-heading">{{ item.title }}</h4>
+                  <p class="info">{{ item.city }}, {{ item.pin }}</p>
+                  <p class="description">{{ item.summary }}</p>
+                  <p class="url">
+                    <label>Website Url:</label> {{ item.website_url }}
+                  </p>
+                  {% comment %} <p>
+                    {% with item.services|split:',', as, services %}
+                      {% for service in services %}
+                        <span class="badge badge-light">{{ service }}</span>
+                      {% endfor %}
+                    {% endwith %}
+                  </p> {% endcomment %}
+                </div>
+                <div class="col-sm-3 text-align-center">
+                  <p class="value3 mt-sm">**** {{ item.rating }}/10</p>
+                  <a class="btn btn-primary btn-info" href="/providerDetails/{{ item.id }}">View Details</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+{% endblock %}

@@ -14,14 +14,24 @@
                 <input type="text" name="search_input" class="form-control" placeholder="Search by Name or Pin Code" aria-label="First name">
               </div>                            
             </div>  
-            <div class="row m-2">
-              {% for item in care_services %}
-                <div class="col">
-                  <input type="checkbox" class="form-check-input" id="{{item.id}}">
-                  <label class="form-check-label" for="{{item.id}}">{{item.description}}</label>
-                </div>   
-              {% endfor %}                     
-            </div>  
+            <div class="row m-4" id="services">
+              <div class="form-check m-2">
+                <input class="form-check-input" value="Nursing" type="radio" name="services" id="services" />
+                <label class="form-check-label">Nursing</label>
+              </div>
+              <div class="form-check m-2">
+                <input class="form-check-input" value="Assisted Care" type="radio" name="services" id="services" />
+                <label class="form-check-label">Assisted Care</label>
+              </div>
+              <div class="form-check m-2">
+                <input class="form-check-input" value="Health Care" type="radio" name="services" id="services" />
+                <label class="form-check-label">Daily Health Checkup</label>
+              </div>
+              <div class="form-check m-2">
+                <input class="form-check-input" value="all" type="radio" name="services" id="services" />
+                <label class="form-check-label">All</label>
+              </div>
+            </div>
             <div class="row m-4">
               <div class="col">
                 <button type="submit" class="btn btn-secondary">Search</button>
@@ -41,7 +51,8 @@
                   <div class="col-sm-9">
                     <h4 class="search-result-item-heading">{{item.title}}</h4>
                     <p class="info">{{item.city}}, {{item.pin}}</p>
-                    <p class="description">{{item.summary}}</p>                    
+                    <p class="description">{{item.summary}}</p>   
+                    <p class="url"> <label>Website Url: </label> {{item.website_url}}</p>                    
                     <p>
                       {% with item.services|split:"," as services %}
                           {% for service in services %}
@@ -52,7 +63,7 @@
                   </div>
                   <div class="col-sm-3 text-align-center">
                     <p class="value3 mt-sm">**** {{item.rating}}/10</p>
-                    <a class="btn btn-primary btn-info" href="#"> View Details </a>
+                    <a class="btn btn-primary btn-info" href="/providerDetails/{{item.id}}"> View Details </a>
                   </div>                  
                 </div>
               </div>

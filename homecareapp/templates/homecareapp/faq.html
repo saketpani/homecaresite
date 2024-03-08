@@ -8,18 +8,17 @@
         <p class="lead text-muted">Frequently asked questions.</p>
       </div>
     </section>
-
-    <div class="py-5 bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="container">
-            {% for item in faq_results %}
-              <details class="mt-2">
-                <summary>{{ item.question }}</summary>
-                <div>{{ item.answer }}</div>
-              </details>
-            {% endfor %}
-          </div>
+    <div class="container">
+      <div class="py-5 bg-light">
+        <div class="list-group w-100">
+          {% for item in faq_results %}
+            <div aria-controls="faqcollapse" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ item.question }}</h5>
+              </div>
+              <p class="mb-1">{{ item.answer }}</p>
+            </div>
+          {% endfor %}
         </div>
       </div>
     </div>
