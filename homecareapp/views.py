@@ -209,8 +209,8 @@ def profile_edit(request, id):
         return redirect('/login/')
 
     if request.method == 'POST':
-        profile = AppUser.objects.filter(user__id=request.user.id).first()
-        profile_form = UserProfileEditForm(request.POST)
+        profile = AppUser.objects.filter(user__id=request.user.id).first()        
+        profile_form = UserProfileEditForm(request.POST, instance=profile)
         if profile_form.is_valid():
             profile_form.save()
             return redirect('/dashboard/{}'.format(request.user.id))

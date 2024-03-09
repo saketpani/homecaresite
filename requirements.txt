@@ -6,6 +6,7 @@ dill==0.3.8
 Django==5.0.1
 django-bootstrap4==23.4
 django-crispy-forms==2.1
+django-jquery==3.1.0
 djangorestframework==3.14.0
 factory-boy==3.3.0
 Faker==24.1.0

@@ -16,13 +16,20 @@ from django.contrib.auth import authenticate, login
 # Home View Tests
 class HomeViewTest(TestCase):
     def setUp(self):
+        '''
+        Initialization before the tests executed.
+        '''   
         PageContentFactory.create(pk = 1, title = 'Home', summary = 'summary', 
                                 category='home',
                                 content1Title = "Header 1", content1Description = "content1 description",
                                 content2Title = "Header 2", content2Description = "content2 description",
                                 content3Title = "Header 3", content3Description = "content3 description",)
     def tearDown(self):
-        pass
+        '''
+        Method called after the tests are executed.
+        '''
+        PageContent.objects.all().delete()
+        PageContentFactory.reset_sequence(0)    
     def test_home_page(self):   
         # arrange           
         home_url = reverse('index')           
@@ -73,13 +80,20 @@ class HomeViewTest(TestCase):
 # About View Tests
 class AboutViewTest(TestCase):
     def setUp(self):
+        '''
+        Initialization before the tests executed.
+        '''           
         PageContentFactory.create(pk = 1, title = 'About us', summary = 'summary of about us', 
                                 category='about',
                                 content1Title = "Header 1", content1Description = "content1 description",
                                 content2Title = "Header 2", content2Description = "content2 description",
                                 content3Title = "Header 3", content3Description = "content3 description",)
     def tearDown(self):
+        '''
+        Method called after the tests are executed.
+        '''       
         PageContent.objects.all().delete()
+        PageContentFactory.reset_sequence(0)    
     def test_about_page(self):   
         # arrange           
         about_url = reverse('about')           
@@ -130,9 +144,16 @@ class AboutViewTest(TestCase):
 # FAQ View Tests
 class FAQViewTest(TestCase):
     def setUp(self):
+        '''
+        Initialization before the tests executed.
+        '''           
         FAQFactory.create(pk = 1, question = 'faq question', answer = 'faq answer')
     def tearDown(self):
-        FAQ.objects.all().delete()
+        '''
+        Method called after the tests are executed.
+        '''        
+        FAQ.objects.all().delete()         
+        FAQFactory.reset_sequence(0)    
     def test_faq_page_returns_ok(self):   
         # arrange           
         faq_url = reverse('faq')           
