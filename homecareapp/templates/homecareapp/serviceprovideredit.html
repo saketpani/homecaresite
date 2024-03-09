@@ -1,0 +1,21 @@
+{% extends './base.html' %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container-fluid">
+    <h5>Update Profile</h5>
+
+    <form method="post" action="/serviceprovideredit/{{ provider_id }}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <hr />
+      <h5>Service Provider Details</h5>
+      <hr />
+      {{ provider_edit_form|crispy }}
+      <input type="submit" name="submit" value="Update" class="btn btn-secondary" />
+      <a name="cancel" href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
+
+{% include './footer.html' %}

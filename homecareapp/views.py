@@ -47,6 +47,15 @@ def faq(request):
 
 @login_required
 def dashboard(request, id):
+    profile = AppUser.objects.filter(user__id=request.user.id).first()
+
+    if profile == None:
+        context = {
+            'message': "This page is not accessible as the registered user is not a normal user type."
+        }
+        template = 'homecareapp/standardmessage.html'
+        return render(request, template, context)
+
     return render(request, "homecareapp/dashboard.html")
 
 
@@ -263,6 +272,50 @@ def profile_edit(request, id):
         template = 'homecareapp/profile.html'
         context = {'profile_edit_form': profile_edit_form, 'user_id': id}
         return render(request, template, context)
+
+
+@login_required
+@require_http_methods(["GET"])
+def serviceprovider(request):
+
+    provider_user = ProviderUser.objects.filter(
+        user__id=request.user.id).first()
+
+    if provider_user == None:
+        context = {
+            'message': "This page is not accessible as the registered user is not a care provider user type."
+        }
+        template = 'homecareapp/standardmessage.html'
+        return render(request, template, context)
+
+    provider_edit_form = ServiceProviderForm(instance=provider_user.provider)
+
+    template = 'homecareapp/serviceprovideredit.html'
+    context = {'provider_edit_form': provider_edit_form,
+               'provider_id': provider_user.provider.id}
+    return render(request, template, context)
+
+
+@login_required
+@require_http_methods(["POST"])
+def serviceprovider_edit(request, provider_id):
+    provider_user = ProviderUser.objects.filter(
+        user__id=request.user.id).first()
+
+    if provider_user == None:
+        context = {
+            'message': "This page is not accessible as the registered user is not a care provider user type."
+        }
+        template = 'homecareapp/standardmessage.html'
+        return render(request, template, context)
+    
+    if request.method == 'POST':
+        provider_edit_form = ServiceProviderForm(request.POST, request.FILES)
+        if provider_edit_form.is_valid():
+            provider_edit_form.save()
+            return redirect('/')
+        else:
+            print(provider_edit_form.errors)
 
 
 @require_http_methods(["GET", "POST"])

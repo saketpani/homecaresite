@@ -147,3 +147,5 @@ class ServiceProviderForm(ModelForm):
             raise ValidationError("city cannot be blank")
         if not pin:
             raise ValidationError("pin cannot be blank")
+
+

@@ -11,7 +11,7 @@
         <a href="/about" class="nav-item nav-link">About</a>
         {% if user.is_authenticated %}
           <a class="nav-link" href="/dashboard/{{ user.id }}">Dashboard</a>
-          <a class="nav-link" href="/serviceprovideredit/{{ user.id }}">Service Provider</a>
+          <a class="nav-link" href="/serviceprovideredit">Service Provider</a>
           <a class="nav-link" href="/logout">Logout</a>
         {% endif %}
       </div>
