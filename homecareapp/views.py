@@ -1,3 +1,4 @@
+# I wrote this code
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -260,7 +261,7 @@ def serviceprovider_edit(request, provider_id):
         return render(request, template, context)
     
     if request.method == 'POST':
-        provider_edit_form = ServiceProviderForm(request.POST, request.FILES)
+        provider_edit_form = ServiceProviderForm(request.POST, request.FILES, instance=provider_user.provider)
         if provider_edit_form.is_valid():
             provider_edit_form.save()
             return redirect('/')
@@ -301,7 +302,7 @@ def user_login(request):
 
         if user.is_active:
             login(request, user)
-            return redirect('/dashboard/{}'.format(request.user.id))
+            return redirect('/')
         else:
             return HttpResponseForbidden("Your account is disabled.")
 
@@ -381,7 +382,7 @@ def service_provider_registration(request):
             provider_user.provider = service_provider
             provider_user.save()
 
-            return redirect('/login')
+            return redirect('/service_provider_login')
         else:
             # validation error occured
             context = {'service_provider_form': service_provider_form}
@@ -398,3 +399,4 @@ def service_provider_registration(request):
         }
 
         return render(request, template, context)
+# end of code I wrote  

@@ -28,14 +28,6 @@ def getTextArea(placeholderValue, rows):
     return Textarea(attrs={'class': 'form-control mb-2', 'placeholder': placeholderValue, 'rows': rows})
 
 
-def greeting():
-    '''
-    Helper method to return greeting
-    '''
-    return random.choice(['Hi', 'Hello', 'Hey'])
-
-
-def greeting_message():
     '''
     helper method to return greetings message
     '''

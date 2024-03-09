@@ -1,3 +1,4 @@
+# I wrote this code
 import factory
 from factory.django import DjangoModelFactory
 from .models import *
@@ -98,3 +99,4 @@ class ProviderUserFactory(DjangoModelFactory):
     provider = None
     class Meta:
         model = ProviderUser                 
+# end of code I wrote  
