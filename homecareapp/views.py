@@ -198,55 +198,6 @@ def register(request):
 
 
 # authentication
-@require_http_methods(["GET", "POST"])
-def register(request):
-    '''
-    user registration view
-    '''
-    registered = False
-
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(request.POST)
-
-        if user_form.is_valid():
-
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            if 'first_name' in user_form.cleaned_data:
-                profile.first_name = request.DATA['first_name']
-            if 'last_name' in user_form.cleaned_data:
-                profile.last_name = request.DATA['last_name']
-            if 'mobile' in user_form.cleaned_data:
-                profile.mobile = request.DATA['mobile']
-            if 'date_of_birth' in user_form.cleaned_data:
-                profile.date_of_birth = request.DATA['date_of_birth']
-            profile.save()
-            registered = True
-            return redirect('login')
-
-        else:
-            print(user_form.errors, profile_form.errors)
-    else:
-        # build the page context
-        user_form = UserForm()
-        user_form.password = ""
-
-        template = 'homecareapp/register.html'
-        context = {
-            'user_form': user_form,
-            'profile_form': UserProfileForm(),
-            'registered': registered
-        }
-
-        # render the page with context
-        return render(request, template, context)
-
 
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -272,7 +223,6 @@ def profile_edit(request, id):
         template = 'homecareapp/profile.html'
         context = {'profile_edit_form': profile_edit_form, 'user_id': id}
         return render(request, template, context)
-
 
 @login_required
 @require_http_methods(["GET"])

@@ -7,6 +7,11 @@ body {
     font-size: 0.9em;
 }
 
+.details_image {
+    min-width : 200px;
+    max-width : 550px;
+}
+
 #application_title {
     display: inline;
 }
@@ -59,33 +64,6 @@ a {
     padding-left: 10px;
 }
 
-.profile-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin: 0 auto;
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
-}
-
-.friend-profile-img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin: 0 auto;
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
-}
-
-.post-image {
-    width: 50%;  
-    height: 300px;  
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
-}
-
-.post{
-    height: 400px;
-}
 
 .card{
     padding: 0.5em;    
@@ -119,15 +97,6 @@ a {
 .btn:hover {              
     color: #fff; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.friend-list-item{    
-    border-radius: 10px;
-}
-
-.friend-list-item img{
-    width: 10%;
-    height: 10%;
 }
 
 .login-card {        

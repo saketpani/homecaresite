@@ -4,7 +4,18 @@
   <div class="container m-1">
     <div class="row">
       <div class="col-md-6 p-2">
-        <img src="/media/assets/flower.jpg" alt="project-image" width="98%" class="rounded m-2" />
+        <img class="image details_image" src="/media/{{service_provider.image}}" alt="service provider" />        
+        <div class="card mt-2">
+          <hr />
+          <div>
+            <b>Address:</b> {{ service_provider.address_line1 }}, {{ service_provider.address_line2 }}
+          </div>
+          <hr />
+          <div>
+            <b>Contact Numbers:</b> {{ service_provider.contact_number1 }}, {{ service_provider.contact_number2 }}
+          </div>
+          <hr />
+        </div>
       </div>
       <div class="col-md-6 p-2">
         <div class="card m-2">
@@ -42,17 +53,7 @@
           </div>
           <hr />
         </div>
-        <div class="card m-2">
-          <hr />
-          <div>
-            <b>Address:</b> Design, Illustration
-          </div>
-          <hr />
-          <div>
-            <b>Contact Numbers:</b> {{ service_provider.contact_number1 }}, {{ service_provider.contact_number2 }}
-          </div>
-          <hr />
-        </div>
+       
       </div>
     </div>
   </div>
