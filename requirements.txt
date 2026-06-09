@@ -1,9 +1,9 @@
-asgiref==3.7.2
+asgiref==3.8.1
 astroid==3.0.3
 beautifulsoup4==4.12.3
 crispy-bootstrap4==2024.1
 dill==0.3.8
-Django==5.0.14
+Django==5.2.2
 django-bootstrap4==23.4
 django-crispy-forms==2.1
 django-jquery==3.1.0
